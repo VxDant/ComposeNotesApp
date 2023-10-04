@@ -1,6 +1,5 @@
 package com.example.composeapp
 
-import android.graphics.Color.red
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
