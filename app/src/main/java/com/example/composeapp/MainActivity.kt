@@ -7,6 +7,8 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Category
@@ -51,12 +53,34 @@ class MainActivity : ComponentActivity() {
         )
         setContent {
             ComposeAppTheme {
+
+                var selectedTabIndex by remember {
+                    mutableIntStateOf(0)
+                }
                 // A surface container using the 'background' color from the theme
-                Surface(
+                Column(
                     modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    EmptyNote()
+
+                ) { TabRow(selectedTabIndex = selectedTabIndex){
+                    tabItems.forEachIndexed{ index, item ->
+                        Tab(
+                            selected = index == selectedTabIndex,
+                            onClick = {
+                                selectedTabIndex = index
+                            },
+                            text = {
+                                Text(text = item.title)
+                            }
+
+                        )
+                    }
+
+                }
+                    when(selectedTabIndex){
+                        1 -> EmptyNote()
+                        0 -> ListOfSavedNotes()
+
+                    }
                 }
             }
         }
@@ -142,6 +166,20 @@ fun EmptyNote(){
 
     }
 
+}
+
+
+@Composable
+fun ListOfSavedNotes(){
+    val list1 = listOf(
+    "A", "B", "C", "D", "E"
+    )
+
+    LazyColumn( modifier = Modifier.fillMaxHeight()) {
+        items(list1){ listItem ->
+            Text(listItem)
+        }
+    }
 }
 
 
