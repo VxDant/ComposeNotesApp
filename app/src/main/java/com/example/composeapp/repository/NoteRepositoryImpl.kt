@@ -1,8 +1,6 @@
 package com.example.composeapp.repository
 
-import android.provider.ContactsContract
-import com.example.composeapp.dao.NotesDao
-import com.example.composeapp.data.ItemNote
+import com.example.composeapp.feature_note.data.data_source.NotesDao
 import kotlinx.coroutines.flow.Flow
 
 class NoteRepositoryImpl(private val dao: NotesDao) : NoteRepository {
